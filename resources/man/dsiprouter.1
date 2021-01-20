@@ -195,27 +195,35 @@ Debug mode to display setting credentials step by step.
 
 -du <user>|--dsip-user=<user>
 Used to set dSIPRouter user name manually.
+Example: -du admin2 | --dsip-user=admin2
 
--dc <pass>|--dsip-creds=<pass>
+-dc <user><pass>|--dsip-creds=<user><pass>
 Used to set dSIPRouter password manually.
+Example: -dc admin2 dsippasswrd | --dsip-creds=admin2 dsippasswrd
 
 -ac <token>|--api-creds=<token>
 Used to set the api token manually.
+Example: -ac hfg783hy | --api-creds=hfg783hy
 
 -ku <user>|--kam-user=<user>
 Used to set kamailio user name manually.
+Example: -ku kamuser | --kam-user=kamuser
 
 -kc <pass>|--kam-creds=<pass>
 Used to set kamalio password manually.
+Example: -kc kampass | --kam-creds=kampass
 
 -mu <user>|--mail-user=<user>
 Used to set mail user name manually.
+Example: -mu mailuser | --mail-user=mailuser
 
 -mc <pass>|--mail-creds=<pass>
 Used to set mail password manually.
+Example: -mc mailpasswrd | --mail-creds=mailpasswrd
 
 -ic <pass>|--ipc-creds=<pass>
 Used to set the ipc password manually.
+Example: -ic ipcpasswrd | --ipc-creds=ipcpasswrd
 .IP "setkamdbconfig options"
 -debug
 Debug mode to display setting kamaliio's database configurations step by step.
