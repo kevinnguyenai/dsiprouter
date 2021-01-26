@@ -581,6 +581,9 @@
 
     /* handler for deleting endpoint group */
     $('#deleteButton').click(function() {
+      /*Check if group id is used in DID and if so tell user about existing mapping*/
+      if (gwgroupid in /*location of stored DID id's*/){
+	  
       deleteEndpointGroup();
     });
 
