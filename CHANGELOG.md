@@ -5,7 +5,8 @@
 
 [//]: # (END_SECTION HEADER)
 [//]: # (START_SECTION COMMITS
-b774c9915fe983922fa74e943567faf95897fe7b
+2482b0bf4befb6797e74422fbc09397c1a68843b
+657e67a1a94b61e050c7ae77cd3fbbee71676622
 64b26f181c81a2146508530ef67ffdfc9ef0f06e
 1a43d1f226b3a882c7909c403871c1547ffff680
 434758b56f12d0fafdeff9c34589f063c353cd37
@@ -1880,10 +1881,27 @@ a72121b9551921aa3dced32d943c6034ba318f82
 ce6c5aac0db5476dc496c34388e4f9ce2c4b86e5
 b46b1e64f06f448bde78b98e3ae8228ce5f96067
 END_SECTION COMMITS)
-[//]: # (START_SECTION b774c9915fe983922fa74e943567faf95897fe7b)
+[//]: # (START_SECTION 2482b0bf4befb6797e74422fbc09397c1a68843b)
+### Send Back Appropriate Error Status
+
+> Commit: [2482b0bf4befb6797e74422fbc09397c1a68843b](https://github.com/dOpensource/dsiprouter/commit/2482b0bf4befb6797e74422fbc09397c1a68843b)  
+> Date: Tue, 2 Feb 2021 16:22:55 -0500  
+> Author: Tyler Moore (tmoore@goflyball.com)  
+> Committer: Tyler Moore (tmoore@goflyball.com)  
+> Signed: Tyler Moore (devopsec) <tmoore@goflyball.com>  
+
+
+- Resolves #338
+- send back proper error if all endpoints agree
+
+
+---
+
+[//]: # (END_SECTION 2482b0bf4befb6797e74422fbc09397c1a68843b)
+[//]: # (START_SECTION 657e67a1a94b61e050c7ae77cd3fbbee71676622)
 ### Move kamailio tls.cfg To Same Location As kamailio.cfg
 
-> Commit: [b774c9915fe983922fa74e943567faf95897fe7b](https://github.com/dOpensource/dsiprouter/commit/b774c9915fe983922fa74e943567faf95897fe7b)  
+> Commit: [657e67a1a94b61e050c7ae77cd3fbbee71676622](https://github.com/dOpensource/dsiprouter/commit/657e67a1a94b61e050c7ae77cd3fbbee71676622)  
 > Date: Fri, 29 Jan 2021 13:32:16 -0500  
 > Author: Tyler Moore (tmoore@goflyball.com)  
 > Committer: Tyler Moore (tmoore@goflyball.com)  
@@ -1894,7 +1912,7 @@ END_SECTION COMMITS)
 
 ---
 
-[//]: # (END_SECTION b774c9915fe983922fa74e943567faf95897fe7b)
+[//]: # (END_SECTION 657e67a1a94b61e050c7ae77cd3fbbee71676622)
 [//]: # (START_SECTION 64b26f181c81a2146508530ef67ffdfc9ef0f06e)
 ### Fix Defaults In settings.py
 
