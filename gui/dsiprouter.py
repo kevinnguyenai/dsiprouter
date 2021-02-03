@@ -308,10 +308,11 @@ def addUpdateCarrierGroups():
         # format data
         if authtype == "userpwd":
             auth_domain = safeUriToHost(auth_domain)
-            if auth_domain is None:
+            host_ip = hostToIP(auth_domain)
+            if host_ip is None:
                 raise http_exceptions.BadRequest("Auth domain hostname/address is malformed")
             if len(auth_proxy) == 0:
-                auth_proxy = auth_domain
+                auth_proxy = host_ip
             auth_proxy = safeFormatSipUri(auth_proxy, default_user=r_username)
             if auth_proxy is None:
                 raise http_exceptions.BadRequest('Auth domain or proxy is malformed')
@@ -327,9 +328,9 @@ def addUpdateCarrierGroups():
 
             # Add auth_domain(aka registration server) to the gateway list
             if authtype == "userpwd":
-                Uacreg = UAC(gwgroup, r_username, auth_password, realm=auth_domain, auth_username=auth_username, auth_proxy=auth_proxy,
-                    local_domain=settings.EXTERNAL_IP_ADDR, remote_domain=auth_domain)
-                Addr = Address(name + "-uac", auth_domain, 32, settings.FLT_CARRIER, gwgroup=gwgroup)
+                Uacreg = UAC(gwgroup, r_username, auth_password, realm=host_ip, auth_username=auth_username, auth_proxy=auth_proxy,
+                    local_domain=settings.EXTERNAL_IP_ADDR, remote_domain=host_ip)
+                Addr = Address(name + "-uac", host_ip, 32, settings.FLT_CARRIER, gwgroup=gwgroup)
                 db.add(Uacreg)
                 db.add(Addr)
 
@@ -355,16 +356,16 @@ def addUpdateCarrierGroups():
                     # update uacreg if exists, otherwise create
                     if not db.query(UAC).filter(UAC.l_uuid == gwgroup).update(
                         {'l_username': r_username, 'r_username': r_username, 'auth_username': auth_username,
-                         'auth_password': auth_password, 'r_domain': auth_domain, 'realm': auth_domain,
+                         'auth_password': auth_password, 'r_domain': host_ip, 'realm': host_ip,
                          'auth_proxy': auth_proxy, 'flags': UAC.FLAGS.REG_ENABLED.value}, synchronize_session=False):
-                        Uacreg = UAC(gwgroup, r_username, auth_password, realm=auth_domain, auth_username=auth_username,
-                                     auth_proxy=auth_proxy, local_domain=settings.EXTERNAL_IP_ADDR, remote_domain=auth_domain)
+                        Uacreg = UAC(gwgroup, r_username, auth_password, realm=host_ip, auth_username=auth_username,
+                                     auth_proxy=auth_proxy, local_domain=settings.EXTERNAL_IP_ADDR, remote_domain=host_ip)
                         db.add(Uacreg)
 
                     # update address if exists, otherwise create
                     if not db.query(Address).filter(Address.tag.contains("name:{}-uac".format(name))).update(
-                        {'ip_addr': auth_domain}, synchronize_session=False):
-                        Addr = Address(name + "-uac", auth_domain, 32, settings.FLT_CARRIER, gwgroup=gwgroup)
+                        {'ip_addr': host_ip}, synchronize_session=False):
+                        Addr = Address(name + "-uac", host_ip, 32, settings.FLT_CARRIER, gwgroup=gwgroup)
                         db.add(Addr)
                 else:
                     # delete uacreg and address if they exist
@@ -579,11 +580,12 @@ def addUpdateCarriers():
         if sip_addr is None:
             raise http_exceptions.BadRequest("Endpoint hostname/address is malformed")
         host_addr = safeStripPort(sip_addr)
+        host_ip = hostToIP(host_addr)
 
         # Adding
         if len(gwid) <= 0:
             if len(gwgroup) > 0:
-                Addr = Address(name, host_addr, 32, settings.FLT_CARRIER, gwgroup=gwgroup)
+                Addr = Address(name, host_ip, 32, settings.FLT_CARRIER, gwgroup=gwgroup)
                 db.add(Addr)
                 db.flush()
 
@@ -599,7 +601,7 @@ def addUpdateCarriers():
                 Gatewaygroup.gwlist = ','.join(gwlist)
 
             else:
-                Addr = Address(name, host_addr, 32, settings.FLT_CARRIER)
+                Addr = Address(name, host_ip, 32, settings.FLT_CARRIER)
                 db.add(Addr)
                 db.flush()
 
@@ -627,7 +629,7 @@ def addUpdateCarriers():
                 if Addr is not None:
                     address_exists = True
 
-                    Addr.ip_addr = host_addr
+                    Addr.ip_addr = host_ip
                     addr_fields = strFieldsToDict(Addr.tag)
                     addr_fields['name'] = name
 
@@ -638,9 +640,9 @@ def addUpdateCarriers():
             # otherwise create the address
             if not address_exists:
                 if len(gwgroup) > 0:
-                    Addr = Address(name, host_addr, 32, settings.FLT_CARRIER, gwgroup=gwgroup)
+                    Addr = Address(name, host_ip, 32, settings.FLT_CARRIER, gwgroup=gwgroup)
                 else:
-                    Addr = Address(name, host_addr, 32, settings.FLT_CARRIER)
+                    Addr = Address(name, host_ip, 32, settings.FLT_CARRIER)
 
                 db.add(Addr)
                 db.flush()
