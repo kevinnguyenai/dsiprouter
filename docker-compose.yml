@@ -5,10 +5,11 @@ services:
       context: .
       dockerfile: docker/dsiprouter/dockerfile
     image: dopensource/dsiprouter
+    container_name: dsiprouter
     volumes:
       - .:/opt/dsiprouter
     ports:
-      - "5000:5000"
+      - "5000"
     environment:
       - ENV=PROD
       - DSIP_USER=admin
@@ -22,15 +23,28 @@ services:
       - KAM_DB_PASS=kamailiorw
     depends_on: 
       - dsiprouter-mysql
-    command: ["./docker/dsiprouter/wait-for-dsiprouter-mysql.sh","dsiprouter-mysql","python","dsiprouter.py","runserver"]
+    command: ["./containers/dsiprouter/wait-for-dsiprouter-mysql.sh","dsiprouter-mysql","python","dsiprouter.py","runserver"]
+  
+  kamailio:
+    image: kamailio/kamailio:5.3.8-trusty
+    restart: unless-stopped
+    container_name: kamailio
+    volumes:
+      - .:/opt/dsiprouter
+    ports:
+      - 5060:5060
+      - 5061:5061
+    depends_on: 
+      - dsiprouter-mysql
 
   dsiprouter-mysql:
     image: mysql:5.7
+    container_name: dsiprouter-mysql
     volumes:
       - /tmp/dbdata:/var/lib/mysql
-      - ./testing/sql/v0.60+ent:/docker-entrypoint-initdb.d/
+      - ./containers/mysql/resources:/docker-entrypoint-initdb.d/
     ports:
-      - "3306:3306"
+      - "3306"
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
       - MYSQL_USER=kamailio
@@ -41,3 +55,17 @@ services:
       timeout: 45s
       retries: 5
 
+  frontend:
+      restart: unless-stopped
+      image: staticfloat/nginx-certbot
+      container_name: certbot
+      ports:
+          - 80:80/tcp
+          - 443:443/tcp
+      environment:
+          CERTBOT_EMAIL: owner@company.com
+      volumes:
+        - ./conf.d:/etc/nginx/user.conf.d:ro
+        - letsencrypt:/etc/letsencrypt
+volumes:
+    letsencrypt:
