@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import os, re, json, subprocess, urllib.parse, glob, datetime, csv, logging, signal, bjoern
+import os, re, json, subprocess, urllib.parse, glob, datetime, csv, logging, signal
 from functools import wraps
 from copy import copy
 from collections import OrderedDict
@@ -2010,7 +2010,6 @@ def injectSettings():
 def syncSettings(new_fields={}, update_net=False):
     """
     Synchronize settings.py with shared mem / db
-
     :param new_fields:      fields to override when syncing
     :type new_fields:       dict
     :param update_net:      if the network settings should be updated
@@ -2041,7 +2040,7 @@ def syncSettings(new_fields={}, update_net=False):
             # need to grab any changes on disk b4 merging
             reload(settings)
 
-            # format fields for DB
+            # format fields for DB    
             fields = OrderedDict(
                 [('DSIP_ID', settings.DSIP_ID), ('DSIP_CLUSTER_ID', settings.DSIP_CLUSTER_ID), ('DSIP_CLUSTER_SYNC', settings.DSIP_CLUSTER_SYNC),
                  ('DSIP_PROTO', settings.DSIP_PROTO), ('DSIP_PORT', settings.DSIP_PORT),
@@ -2068,13 +2067,22 @@ def syncSettings(new_fields={}, update_net=False):
                  ('FLOWROUTE_API_ROOT_URL', settings.FLOWROUTE_API_ROOT_URL), ('INTERNAL_IP_ADDR', settings.INTERNAL_IP_ADDR),
                  ('INTERNAL_IP_NET', settings.INTERNAL_IP_NET), ('EXTERNAL_IP_ADDR', settings.EXTERNAL_IP_ADDR), ('EXTERNAL_FQDN', settings.EXTERNAL_FQDN),
                  ('UPLOAD_FOLDER', settings.UPLOAD_FOLDER), ('CLOUD_PLATFORM', settings.CLOUD_PLATFORM), ('MAIL_SERVER', settings.MAIL_SERVER),
-                 ('MAIL_PORT', settings.MAIL_PORT), ('MAIL_USE_TLS', settings.MAIL_USE_TLS), ('MAIL_USERNAME', settings.MAIL_USERNAME),
+                ('MAIL_PORT', settings.MAIL_PORT), ('MAIL_USE_TLS', settings.MAIL_USE_TLS), ('MAIL_USERNAME', settings.MAIL_USERNAME),
                  ('MAIL_PASSWORD', settings.MAIL_PASSWORD), ('MAIL_ASCII_ATTACHMENTS', settings.MAIL_ASCII_ATTACHMENTS),
                  ('MAIL_DEFAULT_SENDER', settings.MAIL_DEFAULT_SENDER), ('MAIL_DEFAULT_SUBJECT', settings.MAIL_DEFAULT_SUBJECT)]
             )
 
+
             fields.update(new_fields)
             fields.update(net_dict)
+
+            for key, value in fields.items():
+                if os.getenv(key):
+                    fields[key] = os.getenv(key)
+                    print(fields[key])
+                    #print("{},{}".format(fields[key],os.getenv(key))
+                    
+
 
             # convert db specific fields
             orig_kam_db_host = fields['KAM_DB_HOST']
@@ -2215,9 +2223,9 @@ def initApp(flask_app):
     # start the Flask App server
     if os.path.exists(settings.DSIP_UNIX_SOCK):
         os.remove(settings.DSIP_UNIX_SOCK)
-    with open(settings.DSIP_PID_FILE, 'w') as pidfd:
-        pidfd.write(str(os.getpid()))
-    bjoern.run(flask_app, 'unix:{}'.format(settings.DSIP_UNIX_SOCK), reuse_port=True)
+    #with open(settings.DSIP_PID_FILE, 'w') as pidfd:
+        #pidfd.write(str(os.getpid()))
+    #bjoern.run(flask_app, 'unix:{}'.format(settings.DSIP_UNIX_SOCK), reuse_port=True)
 
 def teardown():
     try:
