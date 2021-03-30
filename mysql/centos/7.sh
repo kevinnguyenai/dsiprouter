@@ -12,8 +12,18 @@ function install() {
     # Install Dependencies
     # ...
 
+    # Setup Mariadb Repo
+    (cat << 'EOF'
+[mariadb]
+name = MariaDB
+baseurl = http://yum.mariadb.org/10.3/centos7-amd64
+gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+gpgcheck=1
+EOF
+   ) > /etc/yum.repos.d/MariaDB.repo 
+
     # install mysql packages
-    yum install -y mariadb mariadb-libs mariadb-devel mariadb-server
+    yum -y install MariaDB-server MariaDB-client MariaDB-devel    
 
     # Setup mysql config locations in a reliable manner
     ln -s /usr/share/mariadb/ /usr/share/mysql
@@ -91,6 +101,7 @@ function uninstall {
     # Uninstall mysql / Mariadb packages
     yum remove -y mysql\*
     yum remove -y mariadb\*
+    yum -y remove MariaDB* 
     rm -rf /etc/my.cnf*; rm -f /etc/my.cnf*; rm -f ~/*my.cnf
 
     # TODO: remove selinux/apparmor rules
