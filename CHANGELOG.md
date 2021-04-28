@@ -5,7 +5,8 @@
 
 [//]: # (END_SECTION HEADER)
 [//]: # (START_SECTION COMMITS
-a1b0df86597092454c9b6e636dd92a62a0d05c11
+70ade00e71603fdf5177661bd9f356735b35a6b4
+76ce3054000c143550703246ffec4163d78a5dae
 c44ea6369c55d43bdf92131d245f20869e0ab448
 bd30caf659cc0a10a75c9834cfc2c2061a55d6c5
 3087a23ff41b06f9efe449fee5bf647c22e9f442
@@ -1887,10 +1888,25 @@ a72121b9551921aa3dced32d943c6034ba318f82
 ce6c5aac0db5476dc496c34388e4f9ce2c4b86e5
 b46b1e64f06f448bde78b98e3ae8228ce5f96067
 END_SECTION COMMITS)
-[//]: # (START_SECTION a1b0df86597092454c9b6e636dd92a62a0d05c11)
+[//]: # (START_SECTION 70ade00e71603fdf5177661bd9f356735b35a6b4)
+### Revert Rewriting Contact When Contact User Not Set
+
+> Commit: [70ade00e71603fdf5177661bd9f356735b35a6b4](https://github.com/dOpensource/dsiprouter/commit/70ade00e71603fdf5177661bd9f356735b35a6b4)  
+> Date: Wed, 28 Apr 2021 12:21:58 -0400  
+> Author: Tyler Moore (tmoore@goflyball.com)  
+> Committer: Tyler Moore (tmoore@goflyball.com)  
+> Signed: Tyler Moore (devopsec) <tmoore@goflyball.com>  
+
+
+
+
+---
+
+[//]: # (END_SECTION 70ade00e71603fdf5177661bd9f356735b35a6b4)
+[//]: # (START_SECTION 76ce3054000c143550703246ffec4163d78a5dae)
 ### Fix Record Route Placement In Configs
 
-> Commit: [a1b0df86597092454c9b6e636dd92a62a0d05c11](https://github.com/dOpensource/dsiprouter/commit/a1b0df86597092454c9b6e636dd92a62a0d05c11)  
+> Commit: [76ce3054000c143550703246ffec4163d78a5dae](https://github.com/dOpensource/dsiprouter/commit/76ce3054000c143550703246ffec4163d78a5dae)  
 > Date: Mon, 12 Apr 2021 11:30:24 -0400  
 > Author: Tyler Moore (tmoore@goflyball.com)  
 > Committer: Tyler Moore (tmoore@goflyball.com)  
@@ -1905,7 +1921,7 @@ END_SECTION COMMITS)
 
 ---
 
-[//]: # (END_SECTION a1b0df86597092454c9b6e636dd92a62a0d05c11)
+[//]: # (END_SECTION 76ce3054000c143550703246ffec4163d78a5dae)
 [//]: # (START_SECTION c44ea6369c55d43bdf92131d245f20869e0ab448)
 ### Bug Fixes
 
