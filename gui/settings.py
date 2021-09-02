@@ -9,12 +9,12 @@ DSIP_ID = 1
 DSIP_CLUSTER_ID = 1
 DSIP_CLUSTER_SYNC = False
 DSIP_PROTO = 'https'
-DSIP_PORT = 5000
+DSIP_PORT = 3000
 DSIP_USERNAME = 'admin'
 DSIP_PASSWORD = 'admin'
 DSIP_API_TOKEN = 'admin'
 DSIP_API_PROTO = 'https'
-DSIP_API_PORT = 5000
+DSIP_API_PORT = 3000
 DSIP_PRIV_KEY = '/etc/dsiprouter/privkey'
 DSIP_PID_FILE = '/var/run/dsiprouter/dsiprouter.pid'
 DSIP_UNIX_SOCK = '/var/run/dsiprouter/dsiprouter.sock'
@@ -50,7 +50,7 @@ GUI_INACTIVE_TIMEOUT = 20
 # Database cluster
 #KAM_DB_HOST = ['64.129.84.11','64.129.84.12','50.237.20.11','50.237.20.12']
 # Single Host
-KAM_DB_HOST = 'localhost'
+KAM_DB_HOST = '172.20.0.3'
 # Database Engine Driver to connect with (leave empty for default)
 # supported drivers:    mysqldb | pymysql
 # see sqlalchemy docs for more info: <https://docs.sqlalchemy.org/en/latest/core/engines.html>
@@ -100,9 +100,9 @@ FLOWROUTE_SECRET_KEY = ''
 FLOWROUTE_API_ROOT_URL = 'https://api.flowroute.com/v2'
 
 # updated dynamically! These values will be overwritten
-INTERNAL_IP_ADDR = '178.128.233.182'
-INTERNAL_IP_NET = '178.128.233.*'
-EXTERNAL_IP_ADDR = '178.128.233.182'
+INTERNAL_IP_ADDR = '172.20.0.7'
+INTERNAL_IP_NET = '172.20.0.*'
+EXTERNAL_IP_ADDR = '42.116.254.248'
 EXTERNAL_FQDN = 'sip.dsiprouter.org'
 
 # upload folder for files
@@ -122,7 +122,7 @@ MAIL_USE_TLS = True
 MAIL_USERNAME = ''
 MAIL_PASSWORD = ''
 MAIL_ASCII_ATTACHMENTS = False
-MAIL_DEFAULT_SENDER = 'dSIPRouter {}-{} <{}>'.format(str(DSIP_CLUSTER_ID), str(DSIP_ID), MAIL_USERNAME)
+MAIL_DEFAULT_SENDER = 'dSIPRouter 1-1 <>'.format(str(DSIP_CLUSTER_ID), str(DSIP_ID), MAIL_USERNAME)
 MAIL_DEFAULT_SUBJECT = 'dSIPRouter System Notification'
 
 # backup settings

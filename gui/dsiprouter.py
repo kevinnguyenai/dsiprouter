@@ -2088,8 +2088,9 @@ def syncSettings(new_fields={}, update_net=False):
             orig_kam_db_host = fields['KAM_DB_HOST']
             if isinstance(settings.KAM_DB_HOST, list):
                 fields['KAM_DB_HOST'] = ','.join(settings.KAM_DB_HOST)
-
-            db.execute('CALL update_dsip_settings({})'.format(','.join([':{}'.format(x) for x in fields.keys()])), fields)
+            
+            # Comment to Test by `Kevin`
+            #db.execute('CALL update_dsip_settings({})'.format(','.join([':{}'.format(x) for x in fields.keys()])), fields)
 
             # revert db specific fields
             fields['KAM_DB_HOST'] = orig_kam_db_host
