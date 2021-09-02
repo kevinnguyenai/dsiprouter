@@ -8,8 +8,8 @@ DROP TABLE IF EXISTS `dsip_cdrinfo`;
 CREATE TABLE `dsip_cdrinfo` (
   `gwgroupid` varchar(64) NOT NULL,
   `email` varchar(128) DEFAULT NULL,
-  `send_interval` int(10) unsigned  NULL DEFAULT '',
-  `last_send` datetime DEFAULT NULL,
+  `send_interval` int(11) DEFAULT NULL,
+  `last_send` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`gwgroupid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
